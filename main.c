@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
 
 #define TRUE 1
 #define FALSE 0
@@ -63,25 +64,25 @@ double random() {
 
 int duration = 10;
 double arrival_prob = 0.7;
-int maxservtime = 5;
-int clock;
+int maxserv_time = 5;
+int clock_c;
 int customers;
 int served_customers;
 int waited_time;
-
 int iscustomerarrived() {
-	if (radom() < arrival_prob)
+	srand(time(NULL)); // 난수 초기화
+	if (rand() < arrival_prob)
 		return TRUE; //고객 들어옴
 	else return FALSE;
 }
 
-void insertcustomer(int arrivaltime) {
+void insert_customer(int arrival_time) {
 	element customer;
 	customer.id = customers++;
-	customer.arrivaltime = arrivaltime;
-	customer.servicetime = (int)(maxserv_time * random()) + 1;
+	customer.arrival_time = arrival_time;
+	customer.service_time = (int)(maxserv_time * random()) + 1;
 	enqueue(&queue, customer);
-	printf("고객 %d이 %d분에 들어옵니다. 서비스 시간은 %d분입니다.\n", customer.id, customer.arrivaltime, customer.servicetime);
+	printf("고객 %d이 %d분에 들어옵니다. 서비스 시간은 %d분입니다.\n", customer.id, customer.arrival_time, customer.service_time);
 }
 
 int remove_customer() {
@@ -89,35 +90,37 @@ int remove_customer() {
 	int service_time = 0;
 	if (is_empty(&queue))return 0;
 	customer = dequeue(&queue);
-	servicetime = customer.servicetime - 1;
+	service_time = customer.service_time - 1;
 	served_customers++;
-	waitedtime += clock = customer.arrivaltime;
-	printf("고객 %d이 %d분에 서비스를 시작합니다. 대기시간은 %d분이었습니다.\n", customer.id, clock, clock - customer.arrival_time);
+	waited_time += clock_c = customer.arrival_time;
+	printf("고객 %d이 %d분에 서비스를 시작합니다. 대기시간은 %d분이었습니다.\n", customer.id, clock_c, clock_c - customer.arrival_time);
 	return service_time;
 }
 
 print_stat() {
 	printf("서비스받은 고객수=%d\n", served_customers);
 	printf("전체 대기 시간=%d분\n", waited_time);
-	printf("1인당 평균 대기 시간=%f\n", (double)waitedtime / servedcustomers);
+	printf("1인당 평균 대기 시간=%f\n", (double)waited_time / served_customers);
 	printf("아직 대기중인 고객수=%d\n", customers - served_customers);
 }
 
-void main() {
+int main() {
 	int noserviceman = 3;
 	int service_time[100] = { 0 };
-	clock = 0;
-	while (clock < duration) {
-		clock++;
-		printf("현재시각=%d\n", clock);
+	clock_c = 0;
+	while (clock_c < duration) {
+		clock_c++;
+		printf("현재시각=%d\n", clock_c);
 		if (iscustomerarrived()) {
-			insert_customer(clock);
+			insert_customer(clock_c);
 		}
 		for (int k = 0; k < noserviceman; k++) {
 			if (service_time[k] > 0)
 				service_time[k]--;
 			else if (service_time == 0)
-				servicetime[k] = removecustomer();
+				service_time[k] = remove_customer();
 		}
 	}
+	system("pause");
+	return 0;
 }
