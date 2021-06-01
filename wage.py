@@ -2,7 +2,7 @@
 """
 Created on Mon May 31 16:48:42 2021
 
-@author: RYZEN3200G
+@author: raven90
 """
 # 참고1 : https://stackoverflow.com/questions/32259518/efficient-way-to-create-a-child-window-with-access-to-main-window-disabled/32259971
 from tkinter import *
