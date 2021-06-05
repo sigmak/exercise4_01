@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>jQuery basic</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+	//jQuery의 ready함수는 document가 준비되는 시점에 실행된다.
+$(document).ready(function () { 
+	// 초기 값 지정 
+	$('#code').text('code : ' + $('#tag').find("option:selected").val()); 
+	$('#text').text('text : ' + $('#tag').find("option:selected").text()); 
+	
+	// select 선택이 변경 됐을 때 호출 되는 함수 
+	$('#tag').change(function() { 
+		 $('#code').text( 'code : ' + $(this).find("option:selected").val()); 
+		 $('#text').text( 'text : ' + $(this).find("option:selected").text()); 
+	});
+});
+
+//출처: https://dreamjy.tistory.com/44 [컬쳐N라이프]
+  </script>
+ </head>
+ <body>
+  <select id="tag" >
+   <option value="1">aaaaaa</option>
+   <option value="2" >bbbbbb</option> 
+   <option value="3" >cccccc</option> 
+  </select> 
+  <br/> 
+  <br/> 
+
+  <div id="code"></div> 
+  <div id="text"></div> 
+
+ </body>
+</html>
