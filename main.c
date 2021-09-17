@@ -13,11 +13,11 @@
 #include <stdlib.h>
 
 int main(void) {
-	int year, result1, result2;
+	int year, result1;
 
 	printf("년도를 입력해주세요\n");
 	scanf("%d", &year);
-	//num2 = num1 ? 100 : 200;    // num1이 참이면 num2에 100을 할당, 거짓이면 num2에 200을 할당
+
 	result1 = (year % 4 != 0)   ? printf("윤년이 아닙니다.\n") :
 		      (year % 100 != 0) ? printf("윤년입니다.\n") :
 		      (year % 400 == 0) ? printf("윤년입니다.\n") :printf("윤년이 아닙니다.\n") ;
