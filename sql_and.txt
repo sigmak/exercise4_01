@@ -1,0 +1,54 @@
+/**
+예를 들어 다음과 같은 테이블이 있을 때
+
+본사 테이블
+-----------
+IDX  회사명
+-----------
+1 A
+2 B
+3 C
+4 D
+
+지사 테이블
+-----------
+IDX 주소
+-----------
+1 서울
+1 부산
+1 광주
+2 서울
+3 부산
+3 광주
+4 부산
+4 서울
+
+이렇게 있을 때 지사가 서울과 부산에 모두 있는 본사를 찾고 싶을때 쿼리를 알고 싶습니다.
+
+결과값이 A, D 가 나오고 싶습니다.
+
+감사합니다.**/
+
+insert into Atbl (idx, name) values('1','A')
+insert into Atbl (idx, name) values('2','B')
+insert into Atbl (idx, name) values('3','C')
+insert into Atbl (idx, name) values('4','D')
+--------------------------------------------------
+insert into Btbl (idx, adr) values('1','서울')
+insert into Btbl (idx, adr) values('1','부산')
+insert into Btbl (idx, adr) values('1','광주')
+insert into Btbl (idx, adr) values('2','서울')
+insert into Btbl (idx, adr) values('3','부산')
+insert into Btbl (idx, adr) values('3','광주')
+insert into Btbl (idx, adr) values('4','부산')
+insert into Btbl (idx, adr) values('4','서울')
+
+----------------------------------------------------------
+select * from Atbl 
+select * from Btbl 
+-----------------------------------------------------------
+
+select idx, name from Atbl 
+where idx in (select idx from Btbl where adr in('서울'))
+and idx in (select idx from Btbl where adr not in( '서울'))
+
